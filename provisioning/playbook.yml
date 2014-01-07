@@ -1,0 +1,35 @@
+---
+- hosts: all
+  vars:
+    project_root: /vagrant/jaddream
+
+  tasks:
+    - include: "tasks/pre.yml"
+
+    - name: install webapp project
+      git: repo=git://github.com/sledorze/grunt-angular-express.git dest={{ project_root }}
+
+    - name: install bower globally
+      npm: path={{ project_root }} name=bower version=1.2.8 global=yes
+
+    - name: install webapp npm modules
+      npm: path={{ project_root }}
+      sudo: no
+
+    - name: install grunt globally
+      npm: path={{ project_root }} name=grunt-cli global=yes
+
+    - name: install bower packages
+      shell: chdir={{ project_root }} bower install
+      sudo: no
+
+#    - name: install bower packages
+#      shell: chdir={{ project_root }} {{ project_root }}/node_modules/bower/bin/bower install
+#      sudo: no
+
+#    - name: start grunt server
+#      shell: chdir={{ project_root }} grunt serve &
+
+ # handlers:
+ #   - name: restart ntpd
+ #     service: name=ntpd state=restarted
