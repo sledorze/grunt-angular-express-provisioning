@@ -1,7 +1,7 @@
 ---
 - hosts: all
   vars:
-    project_root: /vagrant/jaddream
+    project_root: /vagrant/webapp
 
   tasks:
     - include: "tasks/pre.yml"
